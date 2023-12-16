@@ -107,8 +107,14 @@ public partial class Dropzone<TItem>
         return activeItem == null ? "" : "plk-dd-inprogess";
     }
 
-    public void OnDragEnd()
+    [Parameter]
+    public Action OnDragEnd { get; set; }
+
+    private void onDragEnd()
     {
+        if (OnDragEnd != null)
+            OnDragEnd();
+
         if (DragEnd != null)
         {
             DragEnd(DragDropService.ActiveItem);
@@ -118,8 +124,14 @@ public partial class Dropzone<TItem>
         //dragTargetItem = default;
     }
 
-    public void OnDragEnter(TItem item)
+    [Parameter]
+    public Action OnDragEnter { get; set; }
+
+    private void onDragEnter(TItem item)
     {
+        if (OnDragEnter != null)
+            OnDragEnter();
+
         var activeItem = DragDropService.ActiveItem;
         if (item.Equals(activeItem))
             return;
@@ -140,16 +152,28 @@ public partial class Dropzone<TItem>
         DragDropService.ShouldRender = false;
     }
 
-    public void OnDragLeave()
+    [Parameter]
+    public Action OnDragLeave { get; set; }
+
+    private void onDragLeave()
     {
+        if (OnDragLeave != null)
+            OnDragLeave();
+
         DragDropService.DragTargetItem = default;
         DragDropService.ShouldRender = true;
         StateHasChanged();
         DragDropService.ShouldRender = false;
     }
 
-    public void OnDragStart(TItem item)
+    [Parameter]
+    public Action<TItem> OnDragStart { get; set; }
+
+    private void onDragStart(TItem item)
     {
+        if (OnDragStart != null)
+            OnDragStart(item);
+
         DragDropService.ShouldRender = true;
         DragDropService.ActiveItem = item;
         DragDropService.Items = Items;

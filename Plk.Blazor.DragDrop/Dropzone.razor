@@ -4,30 +4,33 @@
 @using Microsoft.AspNetCore.Components.Web.Virtualization;
 @implements IDisposable
 
-<div id="@Id" class="@GetClassesForDropzone()" @ondragover:preventDefault @ondragover="()=> { }" @ondragenter:preventDefault @ondragenter="()=> { }" @ondrop="()=>OnDrop()" @ondrop:preventDefault ondragstart="event.dataTransfer.setData('text', event.target.id);"
-@ondrop:stopPropagation
-@ondragenter:stopPropagation
-@ondragend:stopPropagation
-@ondragover:stopPropagation
-@ondragleave:stopPropagation
-@ondragstart:stopPropagation>
+<div class="component">
+    <div id="@Id" class="@GetClassesForDropzone()" @ondragover:preventDefault @ondragover="()=> { }" @ondragenter:preventDefault @ondragenter="()=> { }" @ondrop="()=>OnDrop()" @ondrop:preventDefault ondragstart="event.dataTransfer.setData('text', event.target.id);"
+    @ondrop:stopPropagation
+    @ondragenter:stopPropagation
+    @ondragend:stopPropagation
+    @ondragover:stopPropagation
+    @ondragleave:stopPropagation
+    @ondragstart:stopPropagation>
 
-    @if (Virtualize)
-    {
-        <Virtualize Context="item" TItem="TItem" Items="Items" OverscanCount="VirtualizeOptions.OverscanCount" ItemSize="VirtualizeOptions.ItemSize" ItemsProvider="VirtualizeOptions.ItemsProvider">
-            @rowFragment(item)
-        </Virtualize>
-    }
-    else
-    {
-        @foreach (var item in Items)
+        @if (Virtualize)
         {
-            @rowFragment(item)
+            <Virtualize Context="item" TItem="TItem" Items="Items" OverscanCount="VirtualizeOptions.OverscanCount" ItemSize="VirtualizeOptions.ItemSize" ItemsProvider="VirtualizeOptions.ItemsProvider">
+                @rowFragment(item)
+            </Virtualize>
         }
-    }
+        else
+        {
+            @foreach (var item in Items)
+            {
+                @rowFragment(item)
+            }
+        }
 
-    @Footer
+        @Footer
+    </div>
 </div>
+
 @code {
     protected RenderFragment<TItem> rowFragment => item => __builder =>
      {
@@ -38,10 +41,10 @@
          }
 
          <div draggable="@IsItemDragable(item)"
-         @ondragstart="()=>OnDragStart(item)"
-         @ondragend="()=>OnDragEnd()"
-         @ondragenter="()=>OnDragEnter(item)"
-         @ondragleave="()=>OnDragLeave()"
+         @ondragstart="()=>onDragStart(item)"
+         @ondragend="()=>onDragEnd()"
+         @ondragenter="()=>onDragEnter(item)"
+         @ondragleave="()=>onDragLeave()"
           class="@GetClassesForDraggable(item) @CheckIfItemIsInTransit(item) @CheckIfItemIsDragTarget(item) @CheckIfDragOperationIsInProgess() @CheckIfDraggable(item)">
 
              @{
@@ -53,7 +56,7 @@
 
          </div>
 
-         @if (Items!=null && (MaxItems == null || MaxItems > 1))
+         @if (Items != null && (MaxItems == null || MaxItems > 1))
          {
              <div @ondrop="()=>OnDropItemOnSpacing(Items.IndexOf(item)+1)" @ondrop:stopPropagation @ondragenter="()=>DragDropService.ActiveSpacerId = Items.IndexOf(item)+1" @ondragleave="()=>DragDropService.ActiveSpacerId = null" class="@CheckIfDragOperationIsInProgess() @GetClassesForSpacing(Items.IndexOf(item)+1)"></div>
          }

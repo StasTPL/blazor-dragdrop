@@ -1,0 +1,82 @@
+﻿.component {
+  /*add this to avoid flickering*/
+  /*dropzone style style*/
+  /*drag drop styles*/
+  /*for flex demo*/
+}
+.component .plk-dd-inprogess > * {
+  pointer-events: none;
+}
+.component .plk-dd-dropzone {
+  min-height: 50px;
+}
+.component .plk-dd-spacing {
+  height: 0px;
+}
+.component .plk-dd-spacing-dragged-over {
+  padding: 25px;
+}
+.component .plk-dd-dragged-over {
+  background-color: lightgray;
+  opacity: 0.6;
+  animation: blinker 1s linear infinite;
+}
+.component .plk-dd-dragged-over > div {
+  background-color: lightgray;
+  opacity: 0.6;
+  animation: blinker 1s linear infinite;
+}
+.component .plk-dd-dragged-over-denied {
+  background-color: red;
+  opacity: 0.6;
+  animation: blinker 1s linear infinite;
+}
+.component .plk-dd-in-transit {
+  opacity: 0;
+}
+.component .plk-dd-in-transit > div {
+  opacity: 0;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+.component .blink_me {
+  animation: blinker 1s linear infinite;
+}
+.component .plk-flex .plk-dd-spacing {
+  width: 20px;
+  height: auto;
+}
+.component .plk-flex .plk-dd-dragged-over {
+  background-color: lightgray;
+  opacity: 0.6;
+  animation: blinker 1s linear infinite;
+}
+.component .plk-flex .plk-dd-dragged-over > div {
+  background-color: lightgray;
+  opacity: 0.9;
+  animation: blinker 1s linear infinite;
+}
+.component .plk-flex .plk-dd-in-transit {
+  background-color: orangered;
+}
+.component .plk-flex .plk-dd-in-transit > div {
+  background-color: orangered;
+}
+.component .plk-dd-noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+       supported by Chrome, Edge, Opera and Firefox */
+}
+.component .drag-handle {
+  text-align: center;
+  font-size: 11px;
+  cursor: grab;
+  background-color: #F7F7F8;
+}
